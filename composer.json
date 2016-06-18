@@ -1,0 +1,17 @@
+{
+  "name": "romag/simplerouter",
+  "description": "Simple router",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jerome ROMAGNY",
+      "email": "romagny13@yahoo.fr"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src"
+    }
+  },
+  "require": {}
+}
