@@ -3,22 +3,22 @@ namespace PHPRouter;
 
 class Route
 {
-    public $method;
+    public $methods = [];
     public $pattern;
-    public $callable;
-    public $isCallableAction;
+    public $callable; // function ou Controller@action
+    public $callableIsFunction;
     public $controller;
     public $action;
     private $regexParams = [];
 
-    public function __construct($method,$pattern,$callable,$namespace=null)
+    public function __construct($methods,$pattern,$callable,$namespace=null)
     {
-        $this->method= $method;
+        $this->methods= $methods;
         $this->pattern = $pattern;
         $this->callable = $callable;
 
         if(is_string($this->callable)){
-            $this->isCallableAction = true;
+            $this->callableIsFunction = false;
             $split = explode('@', $this->callable); // "\App\Controller\ArticleController@index" ou Article@index
 
             if(isset($namespace)){
@@ -37,7 +37,7 @@ class Route
             }
         }
         else{
-            $this->isCallableAction = false;
+            $this->callableIsFunction = true;
         }
     }
 
@@ -61,6 +61,19 @@ class Route
         return Array();
     }
 
+    public function with($parameter, $regex){
+        $this->regexParams[$parameter] = str_replace('(', '(?:', $regex);
+        return $this;
+    }
+
+    public function call($parameters = []){
+        if($this->callableIsFunction){
+            call_user_func_array($this->callable, $parameters);
+        }
+        else{
+            call_user_func_array(array($this->controller, $this->action), $parameters);
+        }
+    }
 
     private function paramMatch($match){
         //var_dump($match); // :id et id par exemple
@@ -68,19 +81,5 @@ class Route
             return  '('. $this->regexParams[$match[1]] . ')';
         }
         return '([0-9]+)';
-    }
-
-    public function with($parameter, $regex){
-        $this->regexParams[$parameter] = str_replace('(', '(?:', $regex);
-        return $this;
-    }
-
-    public function call($parameters = []){
-        if($this->isCallableAction){
-            call_user_func_array(array($this->controller, $this->action), $parameters);
-        }
-        else{
-            call_user_func_array($this->callable, $parameters);
-        }
     }
 }

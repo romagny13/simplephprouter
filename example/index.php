@@ -36,11 +36,11 @@ $router->get('/test/:id',function($id){
 });
 
 /**
- * With parameter regex : TODO
+ * With parameter regex
  */
-//$router->get('/regex/:message',function($message){
-//    echo "Received : $message";
-//})->with('message','[a-zA-Z0-9]+');
+$router->get('/regex/:message',function($message){
+    echo "Received : $message";
+})->with('message','[a-zA-Z0-9]+');
 
 
 /**
@@ -49,6 +49,23 @@ $router->get('/test/:id',function($id){
 $router->get('/mynamedroute/:id',function($id){
     echo "Named route receive $id";
 },'namedroute');
+
+
+/**
+ * Match
+ */
+$router->match(["GET","POST"],"/match",function(){
+    echo "Match";
+});
+
+
+/**
+ * Any
+ */
+$router->any('/any',function(){
+    echo "Any";
+});
+
 
 
 
@@ -109,7 +126,7 @@ $router->delete('/articles/:id','Article@delete');
  */
 //$router->get('/test/controller','\\App\\Controller\\ArticleController@getAll');
 
-$success = $router->tryCall();
+$success = $router->run();
 if(!$success){
     header("HTTP/1.0 404 Not Found");
     exit;
