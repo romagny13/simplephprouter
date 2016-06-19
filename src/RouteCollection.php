@@ -30,6 +30,9 @@ class RouteCollection
             $route = new Route($method,$pattern,$callable,$namespace);
             $this->routes[$method][] = $route;
         }
+        else {
+            throw new RouterException("$method $pattern already used");
+        }
     }
 
     private function isValidMethod($method){

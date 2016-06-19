@@ -23,22 +23,22 @@ class Router
     }
 
     public function get($pattern,$callable,$routeName = null){
-        $this->registerRoute('GET',$pattern,$callable);
         if(isset($routeName)){
             $this->registerNamedRoute($routeName,$pattern);
         }
+       $this->registerRoute('GET',$pattern,$callable);
     }
     public function post($pattern,$callable){
-        $this->registerRoute('POST',$pattern,$callable);
+       $this->registerRoute('POST',$pattern,$callable);
     }
     public function put($pattern,$callable){
-        $this->registerRoute('PUT',$pattern,$callable);
+       $this->registerRoute('PUT',$pattern,$callable);
     }
     public function delete($pattern,$callable){
-        $this->registerRoute('DELETE',$pattern,$callable);
+       $this->registerRoute('DELETE',$pattern,$callable);
     }
     public function match($methods,$pattern,$callable){
-        $this->registerRoutes($methods,$pattern,$callable);
+       $this->registerRoutes($methods,$pattern,$callable);
     }
     public function any($pattern,$callable){
         $methods = ["GET","POST","PUT","DELETE"];
