@@ -44,7 +44,7 @@ $router->get('/regex/:message',function($message){
 
 
 /**
- * Named routed
+ * Named route
  */
 $router->get('/mynamedroute/:id',function($id){
     echo "Named route receive $id";
