@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Router;
+namespace PHPRouter;
 
 /**
  * Class Router Se charge d'enregistrer les routes, retrouver la route correspondante à l'url courante et exécuter le callable (fonction, action d'un contrôleur)
