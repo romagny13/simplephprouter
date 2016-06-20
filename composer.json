@@ -1,0 +1,22 @@
+{
+    "name": "romag/phprouter",
+    "description": "Simple PHP router",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jerome ROMAGNY",
+            "email": "romagny13@yahoo.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PHPRouter\\": "src",
+            "App\\": "example/src"
+        }
+    },
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    }
+}
